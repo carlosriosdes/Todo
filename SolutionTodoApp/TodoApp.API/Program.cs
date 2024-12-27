@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using TodoApp.Infraestructure.Data.Context;
 using TodoApp.Infraestructure.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var connectionStringTodoApp = builder.Configuration.GetConnectionString("SqlConecctionTodoApp");
+builder.Services.AddDbContext<TodoAppDBContext>(x => x.UseSqlServer(connectionStringTodoApp), ServiceLifetime.Scoped);
 
 DependencyContainer.RegisterServices(builder.Services);
 
