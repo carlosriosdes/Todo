@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TodoApp.Application.Contracts;
 using TodoApp.Domain.DTOs;
 
@@ -19,6 +20,7 @@ namespace TodoApp.API.Controllers
         /// recover all the Todo
         /// </summary>
         /// <returns></returns>
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
@@ -31,6 +33,7 @@ namespace TodoApp.API.Controllers
         /// </summary>
         /// <param name="id">Contains the id of the Todo to be retrieved</param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
@@ -46,6 +49,7 @@ namespace TodoApp.API.Controllers
         /// Get the tasks that are pending approval
         /// </summary>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("GetPendingApproval")]
         public async Task<IActionResult> GetPendingApprovalAsync()
         {
@@ -58,6 +62,7 @@ namespace TodoApp.API.Controllers
         /// </summary>
         /// <param name="todo">object with the necessary parameters to be able to create Todo</param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddTodoAsync([FromBody] AddTodoDTO todo)
         {
@@ -76,6 +81,7 @@ namespace TodoApp.API.Controllers
         /// <param name="idTodo">Contains the id of the Todo to be updated</param>
         /// <param name="todo">Contains updated information on the Todo</param>
         /// <returns></returns>
+        [Authorize]
         [HttpPut("{idTodo}")]
         public async Task<IActionResult> UpdateTodoAsync(int idTodo, [FromBody] UpdateTodoDTO todo)
         {
@@ -99,6 +105,7 @@ namespace TodoApp.API.Controllers
         /// <param name="idTodo">Contains the id of the Todo to be updated</param>
         /// <param name="todo">Contains the status of the Todo to be updated</param>
         /// <returns></returns>
+        [Authorize]
         [HttpPut("ChangeTodoStatus/{idTodo}")]
         public async Task<IActionResult> ChangeTodoStatusAsync(int idTodo, [FromBody] ChangeTodoStatusDTO todo)
         {
@@ -121,6 +128,7 @@ namespace TodoApp.API.Controllers
         /// </summary>
         /// <param name="idTodoList">Contains a list with the ids corresponding to the Todo to be updated</param>
         /// <returns></returns>
+        [Authorize]
         [HttpPut("UpdatePendingApproval")]
         public async Task<IActionResult> UpdatePendingApprovalAsync([FromBody] List<int> idTodoList)
         {
@@ -138,6 +146,7 @@ namespace TodoApp.API.Controllers
         /// </summary>
         /// <param name="idTodo">Contains the id of the Todo to be deleted</param>
         /// <returns></returns>
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{idTodo}")]
         public async Task<IActionResult> DeleteAsync(int idTodo)
         {

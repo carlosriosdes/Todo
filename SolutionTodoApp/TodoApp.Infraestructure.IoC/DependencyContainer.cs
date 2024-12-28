@@ -12,6 +12,9 @@ namespace TodoApp.Infraestructure.IoC
         {
             services.AddScoped<ITodoService, TodoService>();
             services.AddScoped<ITodoRepository, TodoRepository>();
+
+            services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<ILoginRepository, LoginRepository>();
         }
     }
 }

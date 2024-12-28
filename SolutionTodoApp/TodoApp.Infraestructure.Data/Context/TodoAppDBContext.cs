@@ -9,8 +9,22 @@ namespace TodoApp.Infraestructure.Data.Context
         public DbSet<TodoStates> TodoStates { get; set; }
         public DbSet<Todo> Todo { get; set; }
 
+        public DbSet<User> User { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("User");
+                entity.HasKey(c => c.IdUser);
+                entity.Property(c => c.IdUser);
+                entity.Property(c => c.Name);
+                entity.Property(c => c.Email);
+                entity.Property(c => c.UserName);
+                entity.Property(c => c.Password);
+                entity.Property(c => c.Role);
+            });
+
             modelBuilder.Entity<TodoStates>(entity =>
             {
                 entity.ToTable("TodoStates");
