@@ -1,113 +1,83 @@
 # Todo
 
-# Documentación del Proyecto
+# Project Documentation
 
-## Enfoque de la solución
+## Solution Approach
 
-La aplicación es un sistema de gestión de Todos que permite la autenticación y autorización a través de un mecanismo de login. Los usuarios pueden iniciar sesión proporcionando su nombre de usuario y contraseña, y el sistema valida sus credenciales contra la base de datos.
+The application is a Todos management system that allows authentication and authorization through a login mechanism. Users can log in by providing their username and password, and the system validates their credentials against the database.
 
-El proyecto está desarrollado utilizando **ASP.NET Core**, una arquitectura **Clean Architecture** para estructurar la lógica del negocio, y **Entity Framework Core** para la interacción con la base de datos. La base de datos se utiliza para almacenar los detalles de los Todo y los usuarios.
+The project is developed using **ASP.NET Core**, a **Clean Architecture** to structure the business logic, and **Entity Framework Core** for interaction with the database. The database is used to store the Todo and user details.
 
-### Tecnologías utilizadas:
-- **ASP.NET Core** para la creación del API RESTful.
-- **Entity Framework Core** para la persistencia de datos en la base de datos.
-- **SQL Server** como base de datos.
-- **JWT** para autenticación y autorización.
+### Technologies used:
+- **ASP.NET Core** for creating the RESTful API.
+- **Entity Framework Core** for persisting data in the database.
+- **SQL Server** as the database.
+- **JWT** for authentication and authorization.
 
-### Arquitectura de la aplicación:
-- La aplicación sigue una arquitectura **Clean Architecture**, separando las responsabilidades entre las capas:
-  - **Capa de presentación**: Controles HTTP (API Controllers).
-  - **Capa de dominio**: Lógica de negocio.
-  - **Capa de infraestructura**: Interacción con la base de datos y la inversion de control.
-  - **Capa de servicios**: Manejo de la lógica de validación y autenticación.
+### Application Architecture:
+- The application follows a **Clean Architecture**, separating responsibilities between layers:
+- **Presentation Layer**: HTTP Controls (API Controllers).
+- **Domain Layer**: Business Logic.
+- **Infrastructure Layer**: Interaction with the database and inversion of control.
+- **Services Layer**: Handling validation and authentication logic.
 
-## Cumplimiento de los Requisitos
+## Compliance with Requirements
 
-La aplicación cumple con los siguientes requisitos planteados por la empresa:
+The application meets the following requirements set by the company:
 
-- **Autenticación y autorización**: Se implementó un sistema de login con validación de usuario mediante nombre de usuario y contraseña. La seguridad se refuerza mediante la validación contra una base de datos y el uso de **JWT** para la autorización en endpoints protegidos.
-  
-- **Interacción con la base de datos**: Utilizando **Entity Framework Core**, la aplicación puede acceder y gestionar los datos de los Todo de forma eficiente.
+- **Authentication and Authorization**: A login system with user validation using username and password was implemented. Security is reinforced by validation against a database and the use of **JWT** for authorization on protected endpoints.
 
-- **Escalabilidad**: La solución está diseñada para ser escalable, utilizando prácticas de arquitectura limpia y otros principios de codigo limpio y buenas practicas que permiten añadir más funcionalidades sin comprometer el código existente.
+- **Interaction with the database**: Using **Entity Framework Core**, the application can access and manage Todo data efficiently.
 
-- **Mantenibilidad**: La aplicación está diseñada para facilitar su mantenimiento y extensión. La arquitectura modular y la separación de responsabilidades permiten agregar nuevas características y realizar ajustes de manera eficiente.
+- **Scalability**: The solution is designed to be scalable, using clean architecture practices and other clean code principles and best practices that allow for adding more functionality without compromising existing code.
 
-- **Pruebas unitarias**: Se implementaron pruebas unitarias para garantizar la correcta ejecución de los componentes individuales de la aplicación, asegurando que cada módulo funcione de manera aislada y que el sistema en su conjunto cumpla con los requisitos de la empresa.
-  
-- **Funcionalidad**: La solucion cuenta con varios endpoint los cuales permiten realizar las operaciones necesarias para los Todo que van desde su creacion, actualizacion, cambio de estados, aceptacion de Todo pendientes y la eliminacion, adicional a esto cuenta con seguridad mediante JWT.
+- **Maintainability**: The application is designed for easy maintenance and extension. The modular architecture and separation of responsibilities allow for adding new features and making adjustments efficiently.
 
-## Instrucciones para ejecutar y probar la aplicación
+- **Unit Testing**: Unit testing was implemented to ensure the correct execution of the individual components of the application, ensuring that each module works in isolation and that the system as a whole meets the company's requirements.
 
-### Requisitos previos:
+- **Functionality**: The solution has several endpoints that allow the necessary operations to be performed for the Todo, ranging from its creation, update, change of status, acceptance of pending Todo and deletion, in addition to this it has security through JWT.
+
+## Instructions for running and testing the application
+
+### Prerequisites:
 - **.NET 8.0**.
-- **SQL Server** para la base de datos.
-- **Postman** para probar los servicios.
+- **SQL Server** for the database.
+- **Postman** to test the services.
 
-### Configuración del proyecto:
+### Project configuration:
 
-1. **Clonar el repositorio**:
+1. **Clone the repository**:
 
-   Clónalo usando Git:
+Clone it using Git:
 
-   git clone (https://github.com/carlosriosdes/Todo.git)
+git clone (https://github.com/carlosriosdes/Todo.git)
 
-2. **Configurar cadena de conexion**:
-   
-   configurar la cadena SqlConecctionTodoApp en el archivo appsettings.json, importante contar con un login en SQL para poder adicionarlo a la cadena
-   
-3. **Configurar la base de datos**:
-   Por temas de tiempo no alcance a realizar los crud para los estados y usuarios, pero dejo evidencia de como se deberian de ver las tablas, los campos se pueden ingresar por medio del editor de consultas de SQL.
-   
-   la tabla TodoStates debe contener la siguiente informacion 
-   IdTodoState	Description
-      1	          Todo
-      2	          Doing
-      3	          Done
-   
-   la tabla User debe contener al menos un usuario para poder acceder a la aplicacion
-   
-   IdUser	Name	Email	UserName	Password	Role
-    1	Carlos	carlos@gmail.com	carlos	carlos	Admin
+2. **Configure connection string**:
 
-### Probar la aplicación:
+configure the SqlConecctionTodoApp string in the appsettings.json file, it is important to have a login in SQL to be able to add it to the string
 
-1. **Ejecutar la aplicacion**:
-   * Luego de ejecutar la aplicacion podras visualizar los endpoints disponibles y podras copiarlos para trabajar con ellos en Postman.
-   * Ejecutar el login en enpoint /api/Auth/Login, este es para poder tener acceso al token que permite poder consultar el resto de las acciones de los Todo.
-   * Luego de tener el Token se pueden congifurar el resto de enpoints para los Todo y consumirlos con el token que se genero en el paso anterior, se debe de poner en el header con el key "Authorization" y en el value "Bearer (token generado)"
+3. **Configure the database**:
+Due to time issues I did not have time to do the crud for the states and users, but I leave evidence of how the tables should look, the fields can be entered through the SQL query editor.
 
-### Comentarios:
+the TodoStates table must contain the following information
+IdTodoState Description
+1 Todo
+2 Doing
+3 Done
 
-1. Para el tema de seguridad como la cadena de conexion o el key para genera el codigo, se puede utilizar herramientas de seguridad como el KeyVault de azure para no tenerlas harcodeadas en el codigo, lo mismo los mensajes.
-2. Tambien se podria anadir un nivel mas en los logs y dejarlos en un archivo o en la nube tambien con Azure u otra plataforma devops.
-3. En los Commits tambien se puede leer informacion mas detallada del proceso y lo que contiene la aplicaicon.
+the User table must contain at least one user to be able to access the application
 
+IdUser Name Email UserName Password Role
+1 Carlos carlos@gmail.com carlos carlos Admin
 
+### Test the application:
 
+1. **Run the application**:
+* After running the application you will be able to view the available endpoints and you will be able to copy them to work with them in Postman.
+* Run the login at endpoint /api/Auth/Login, this is to be able to access the token that allows you to consult the rest of the Todo actions.
+* After having the Token, you can configure the rest of the endpoints for the Todo and consume them with the token that was generated in the previous step. It must be placed in the header with the key "Authorization" and in the value "Bearer (generated token)"
 
+### Comments:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
+1. For the security issue such as the connection string or the key to generate the code, you can use security tools such as Azure's KeyVault so as not to have them hardcoded in the code, the same with the messages.
+2. You could also add another level to the logs and leave them in a file or in the cloud also with Azure or another development platform
