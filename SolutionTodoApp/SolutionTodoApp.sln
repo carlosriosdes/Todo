@@ -13,17 +13,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infraestructure", "Infraest
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{B185313D-E598-4C63-8893-BA760D29AF11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApiTodoApp", "TestApiTodoApp\TestApiTodoApp.csproj", "{8FF13606-019B-460D-9BB0-55DFCA880969}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApiTodoApp", "TestApiTodoApp\TestApiTodoApp.csproj", "{8FF13606-019B-460D-9BB0-55DFCA880969}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.Infraestructure.Data", "TodoApp.Infraestructure.Data\TodoApp.Infraestructure.Data.csproj", "{B0068793-20D0-4B35-BD16-5CBDC3B6C783}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.Infraestructure.Data", "TodoApp.Infraestructure.Data\TodoApp.Infraestructure.Data.csproj", "{B0068793-20D0-4B35-BD16-5CBDC3B6C783}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.Infraestructure.IoC", "TodoApp.Infraestructure.IoC\TodoApp.Infraestructure.IoC.csproj", "{DF7882B5-3F0A-4D83-834C-EFCD54E09271}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.Infraestructure.IoC", "TodoApp.Infraestructure.IoC\TodoApp.Infraestructure.IoC.csproj", "{DF7882B5-3F0A-4D83-834C-EFCD54E09271}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.Domain", "TodoApp.Domain\TodoApp.Domain.csproj", "{C06CF46E-9ADE-4625-9338-6EEFED633C91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.Domain", "TodoApp.Domain\TodoApp.Domain.csproj", "{C06CF46E-9ADE-4625-9338-6EEFED633C91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.Application", "TodoApp.Application\TodoApp.Application.csproj", "{726DD6EF-712C-46A3-99BD-0FCA91D190B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.Application", "TodoApp.Application\TodoApp.Application.csproj", "{726DD6EF-712C-46A3-99BD-0FCA91D190B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.API", "TodoApp.API\TodoApp.API.csproj", "{37825A21-E795-4CE9-A2EB-B04D7EE80681}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.API", "TodoApp.API\TodoApp.API.csproj", "{37825A21-E795-4CE9-A2EB-B04D7EE80681}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

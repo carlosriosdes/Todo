@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TodoApp.Application.Contracts;
-using TodoApp.Domain.Models;
+using TodoApp.Domain.DTOs;
 
 namespace TodoApp.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class TodoController : ControllerBase
     {
         private readonly ITodoService _todoService;
@@ -15,14 +15,23 @@ namespace TodoApp.API.Controllers
             _todoService = todoService;
         }
 
-        [HttpGet("GetAllAsync")]
+        /// <summary>
+        /// recover all the Todo
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
             var todos = await _todoService.GetAllAsync();
             return Ok(todos);
         }
 
-        [HttpGet("GetByIdAsync/{id}")]
+        /// <summary>
+        /// recover a Todo by Id
+        /// </summary>
+        /// <param name="id">Contains the id of the Todo to be retrieved</param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
             var todo = await _todoService.GetByIdAsync(id);
@@ -33,32 +42,113 @@ namespace TodoApp.API.Controllers
             return Ok(todo);
         }
 
-        [HttpGet("GetPendingApprovalAsync")]
+        /// <summary>
+        /// Get the tasks that are pending approval
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetPendingApproval")]
         public async Task<IActionResult> GetPendingApprovalAsync()
         {
             var todos = await _todoService.GetPendingApprovalAsync();
             return Ok(todos);
         }
 
-        [HttpPost("AddAsync")]
-        public async Task<IActionResult> AddAsync([FromBody] Todo todo)
+        /// <summary>
+        /// create Todo
+        /// </summary>
+        /// <param name="todo">object with the necessary parameters to be able to create Todo</param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> AddTodoAsync([FromBody] AddTodoDTO todo)
         {
-            await _todoService.AddAsync(todo);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var createdTodo = await _todoService.AddAsync(todo);
+            return Ok(createdTodo);
+        }
+
+        /// <summary>
+        /// update Todo
+        /// </summary>
+        /// <param name="idTodo">Contains the id of the Todo to be updated</param>
+        /// <param name="todo">Contains updated information on the Todo</param>
+        /// <returns></returns>
+        [HttpPut("{idTodo}")]
+        public async Task<IActionResult> UpdateTodoAsync(int idTodo, [FromBody] UpdateTodoDTO todo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var updatedTodo = await _todoService.UpdateTodoAsync(idTodo, todo);
+            if (updatedTodo == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(updatedTodo); 
+        }
+
+        /// <summary>
+        /// changes the state of a Todo
+        /// </summary>
+        /// <param name="idTodo">Contains the id of the Todo to be updated</param>
+        /// <param name="todo">Contains the status of the Todo to be updated</param>
+        /// <returns></returns>
+        [HttpPut("ChangeTodoStatus/{idTodo}")]
+        public async Task<IActionResult> ChangeTodoStatusAsync(int idTodo, [FromBody] ChangeTodoStatusDTO todo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var updatedTodoStatus = await _todoService.ChangeTodoStatusAsync(idTodo, todo);
+            if (updatedTodoStatus == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(updatedTodoStatus);
+        }
+
+        /// <summary>
+        /// Updates the status and Pending Approval field for the selected Todos
+        /// </summary>
+        /// <param name="idTodoList">Contains a list with the ids corresponding to the Todo to be updated</param>
+        /// <returns></returns>
+        [HttpPut("UpdatePendingApproval")]
+        public async Task<IActionResult> UpdatePendingApprovalAsync([FromBody] List<int> idTodoList)
+        {
+            if (idTodoList == null || !idTodoList.Any())
+            {
+                return BadRequest("The ID list cannot be empty.");
+            }
+
+            await _todoService.UpdatePendingApprovalAsync(idTodoList);
             return Ok();
         }
 
-        [HttpPut("UpdateAsync")]
-        public async Task<IActionResult> UpdateAsync([FromBody] Todo todo)
+        /// <summary>
+        /// Delete Todo
+        /// </summary>
+        /// <param name="idTodo">Contains the id of the Todo to be deleted</param>
+        /// <returns></returns>
+        [HttpDelete("{idTodo}")]
+        public async Task<IActionResult> DeleteAsync(int idTodo)
         {
-            await _todoService.UpdateAsync(todo);
-            return Ok();
+            var result = await _todoService.DeleteAsync(idTodo);
+            if (result)
+            {
+                return NoContent(); 
+            }
+            return NotFound(); 
         }
 
-        [HttpDelete("delete/{id}")]
-        public async Task<IActionResult> DeleteAsync(int id)
-        {
-            await _todoService.DeleteAsync(id);
-            return Ok();
-        }
+
     }
 }

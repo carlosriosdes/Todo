@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using TodoApp.API.Middlewares;
 using TodoApp.Infraestructure.Data.Context;
 using TodoApp.Infraestructure.IoC;
 
@@ -7,9 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    // Añadir la documentación XML generada
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
+
 
 var connectionStringTodoApp = builder.Configuration.GetConnectionString("SqlConecctionTodoApp");
 builder.Services.AddDbContext<TodoAppDBContext>(x => x.UseSqlServer(connectionStringTodoApp), ServiceLifetime.Scoped);
@@ -17,6 +26,8 @@ builder.Services.AddDbContext<TodoAppDBContext>(x => x.UseSqlServer(connectionSt
 DependencyContainer.RegisterServices(builder.Services);
 
 var app = builder.Build();
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
